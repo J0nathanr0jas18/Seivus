@@ -1,0 +1,61 @@
+import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+interface AddSavingModalProps {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (amount: number, date: string) => void;
+  goalName?: string;
+}
+
+export default function AddSavingModal({ open, onClose, onSubmit, goalName }: AddSavingModalProps) {
+  const [amount, setAmount] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const num = parseFloat(amount);
+    if (num > 0) {
+      onSubmit(num, date);
+      setAmount("");
+      onClose();
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="font-heading">
+            {goalName ? `Add saving to "${goalName}"` : "How much did you save today?"}
+          </DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label>Amount ($)</Label>
+            <Input
+              type="number"
+              min="0.01"
+              step="0.01"
+              placeholder="0.00"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              autoFocus
+              className="text-lg"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Date</Label>
+            <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+          </div>
+          <Button type="submit" className="w-full gradient-primary text-primary-foreground">
+            Save
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
