@@ -37,16 +37,16 @@ export default function DailyCheckModal({ open, onClose, goals, onSubmit }: Dail
         <DialogHeader>
           <DialogTitle className="font-heading flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            Daily Check-In
+            Check-In Diario
           </DialogTitle>
         </DialogHeader>
-        <p className="text-sm text-muted-foreground">How much did you save today?</p>
+        <p className="text-sm text-muted-foreground">¿Cuánto ahorraste hoy?</p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label>Goal</Label>
+            <Label>Meta</Label>
             <Select value={goalId} onValueChange={setGoalId}>
               <SelectTrigger>
-                <SelectValue placeholder="Select a goal" />
+                <SelectValue placeholder="Selecciona una meta" />
               </SelectTrigger>
               <SelectContent>
                 {activeGoals.map((g) => (
@@ -58,7 +58,7 @@ export default function DailyCheckModal({ open, onClose, goals, onSubmit }: Dail
             </Select>
           </div>
           <div className="space-y-2">
-            <Label>Amount ($)</Label>
+            <Label>Monto ($)</Label>
             <Input
               type="number"
               min="0.01"
@@ -70,7 +70,7 @@ export default function DailyCheckModal({ open, onClose, goals, onSubmit }: Dail
             />
           </div>
           <Button type="submit" className="w-full gradient-primary text-primary-foreground">
-            Log Saving
+            Registrar Ahorro
           </Button>
         </form>
       </DialogContent>

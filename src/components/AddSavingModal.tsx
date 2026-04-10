@@ -30,12 +30,12 @@ export default function AddSavingModal({ open, onClose, onSubmit, goalName }: Ad
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="font-heading">
-            {goalName ? `Add saving to "${goalName}"` : "How much did you save today?"}
+            {goalName ? `Agregar ahorro a "${goalName}"` : "¿Cuánto ahorraste hoy?"}
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label>Amount ($)</Label>
+            <Label>Monto ($)</Label>
             <Input
               type="number"
               min="0.01"
@@ -48,11 +48,11 @@ export default function AddSavingModal({ open, onClose, onSubmit, goalName }: Ad
             />
           </div>
           <div className="space-y-2">
-            <Label>Date</Label>
+            <Label>Fecha</Label>
             <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
           </div>
           <Button type="submit" className="w-full gradient-primary text-primary-foreground">
-            Save
+            Guardar
           </Button>
         </form>
       </DialogContent>

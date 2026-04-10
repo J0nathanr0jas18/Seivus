@@ -23,7 +23,7 @@ export interface User {
 
 export const dummyUser: User = {
   name: "Alex Johnson",
-  email: "alex@example.com",
+  email: "alex@ejemplo.com",
   joinedAt: "2025-01-15",
 };
 
@@ -50,7 +50,7 @@ export const dummyGoals: Goal[] = [
   },
   {
     id: "2",
-    name: "Vacation to Japan",
+    name: "Vacaciones a Japón",
     targetAmount: 5000,
     savedAmount: 1200,
     deadline: "2026-12-15",
@@ -64,7 +64,7 @@ export const dummyGoals: Goal[] = [
   },
   {
     id: "3",
-    name: "Emergency Fund",
+    name: "Fondo de Emergencia",
     targetAmount: 10000,
     savedAmount: 4500,
     createdAt: "2025-06-01",
@@ -76,7 +76,7 @@ export const dummyGoals: Goal[] = [
   },
   {
     id: "4",
-    name: "New Bicycle",
+    name: "Bicicleta Nueva",
     targetAmount: 800,
     savedAmount: 800,
     deadline: "2026-04-01",

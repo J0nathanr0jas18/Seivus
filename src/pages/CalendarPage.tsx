@@ -34,8 +34,8 @@ export default function CalendarPage() {
     <div className="min-h-screen bg-background pb-20 md:pb-8">
       <Navbar />
       <main className="max-w-lg mx-auto px-4 py-6">
-        <h1 className="font-heading text-2xl font-bold text-foreground mb-2">Activity Calendar</h1>
-        <p className="text-sm text-muted-foreground mb-6">Track your daily savings activity</p>
+        <h1 className="font-heading text-2xl font-bold text-foreground mb-2">Calendario de Actividad</h1>
+        <p className="text-sm text-muted-foreground mb-6">Rastrea tu actividad diaria de ahorro</p>
 
         <CalendarView deposits={allDeposits} onDayClick={handleDayClick} />
 
@@ -48,15 +48,15 @@ export default function CalendarPage() {
           >
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-heading font-semibold text-card-foreground">
-                {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+                {new Date(selectedDate + "T12:00:00").toLocaleDateString("es-ES", { weekday: "long", month: "long", day: "numeric" })}
               </h3>
               <button onClick={handleAddFromCalendar} className="text-sm text-primary font-medium hover:underline">
-                + Log saving
+                + Registrar ahorro
               </button>
             </div>
 
             {depositsForDate.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No activity this day.</p>
+              <p className="text-sm text-muted-foreground">Sin actividad este día.</p>
             ) : (
               <div className="space-y-2">
                 {depositsForDate.map((d) => (
@@ -77,9 +77,9 @@ export default function CalendarPage() {
         {/* Goal selector for calendar add */}
         {modalOpen && activeGoals.length > 1 && !selectedGoalId && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 bg-card rounded-xl p-4 shadow-card border">
-            <p className="text-sm text-muted-foreground mb-2">Which goal?</p>
+            <p className="text-sm text-muted-foreground mb-2">¿A qué meta?</p>
             <Select value={selectedGoalId} onValueChange={(v) => { setSelectedGoalId(v); }}>
-              <SelectTrigger><SelectValue placeholder="Select a goal" /></SelectTrigger>
+              <SelectTrigger><SelectValue placeholder="Selecciona una meta" /></SelectTrigger>
               <SelectContent>
                 {activeGoals.map((g) => (
                   <SelectItem key={g.id} value={g.id}>{g.name}</SelectItem>

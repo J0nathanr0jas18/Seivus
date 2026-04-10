@@ -33,7 +33,7 @@ export default function GoalCard({ goal }: { goal: Goal }) {
                 <h3 className="font-heading font-semibold text-card-foreground">{goal.name}</h3>
                 {goal.deadline && (
                   <p className="text-xs text-muted-foreground">
-                    Due {new Date(goal.deadline).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    Vence el {new Date(goal.deadline).toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" })}
                   </p>
                 )}
               </div>
@@ -48,12 +48,12 @@ export default function GoalCard({ goal }: { goal: Goal }) {
               ${goal.savedAmount.toLocaleString()} <span className="text-xs">/ ${goal.targetAmount.toLocaleString()}</span>
             </span>
             <span className={`font-semibold ${isComplete ? "text-success" : "text-primary"}`}>
-              {isComplete ? "Complete!" : `${pct}%`}
+              {isComplete ? "¡Completada!" : `${pct}%`}
             </span>
           </div>
           {!isComplete && remaining > 0 && (
             <p className="text-xs text-muted-foreground mt-1">
-              ${remaining.toLocaleString()} remaining
+              ${remaining.toLocaleString()} restante
             </p>
           )}
         </div>

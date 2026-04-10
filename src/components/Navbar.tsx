@@ -3,9 +3,9 @@ import { LayoutDashboard, CalendarDays, User, PiggyBank } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/calendar", label: "Calendar", icon: CalendarDays },
-  { to: "/profile", label: "Profile", icon: User },
+  { to: "/dashboard", label: "Panel", icon: LayoutDashboard },
+  { to: "/calendar", label: "Calendario", icon: CalendarDays },
+  { to: "/profile", label: "Perfil", icon: User },
 ];
 
 export default function Navbar() {

@@ -17,9 +17,9 @@ export default function Dashboard() {
   const activeGoals = goals.filter((g) => g.savedAmount < g.targetAmount).length;
 
   const stats = [
-    { label: "Total Saved", value: `$${totalSaved.toLocaleString()}`, icon: DollarSign, color: "text-primary" },
-    { label: "Active Goals", value: activeGoals, icon: Target, color: "text-accent" },
-    { label: "Overall Progress", value: `${Math.round((totalSaved / totalTarget) * 100)}%`, icon: TrendingUp, color: "text-success" },
+    { label: "Total Ahorrado", value: `$${totalSaved.toLocaleString()}`, icon: DollarSign, color: "text-primary" },
+    { label: "Metas Activas", value: activeGoals, icon: Target, color: "text-accent" },
+    { label: "Progreso General", value: `${Math.round((totalSaved / totalTarget) * 100)}%`, icon: TrendingUp, color: "text-success" },
   ];
 
   return (
@@ -29,8 +29,8 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="font-heading text-2xl font-bold text-foreground">Dashboard</h1>
-            <p className="text-sm text-muted-foreground">Track your savings goals</p>
+            <h1 className="font-heading text-2xl font-bold text-foreground">Panel</h1>
+            <p className="text-sm text-muted-foreground">Controla tus metas de ahorro</p>
           </div>
           <div className="flex gap-2">
             <Button
@@ -40,12 +40,12 @@ export default function Dashboard() {
               className="gap-1.5"
             >
               <Sparkles className="w-4 h-4" />
-              <span className="hidden sm:inline">Daily Check</span>
+              <span className="hidden sm:inline">Check Diario</span>
             </Button>
             <Button asChild size="sm" className="gradient-primary text-primary-foreground gap-1.5">
               <Link to="/create-goal">
                 <Plus className="w-4 h-4" />
-                <span className="hidden sm:inline">New Goal</span>
+                <span className="hidden sm:inline">Nueva Meta</span>
               </Link>
             </Button>
           </div>
@@ -68,7 +68,7 @@ export default function Dashboard() {
         </div>
 
         {/* Goals */}
-        <h2 className="font-heading text-lg font-semibold text-foreground mb-3">Your Goals</h2>
+        <h2 className="font-heading text-lg font-semibold text-foreground mb-3">Tus Metas</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {goals.map((goal) => (
             <GoalCard key={goal.id} goal={goal} />
@@ -78,7 +78,7 @@ export default function Dashboard() {
         {goals.length === 0 && (
           <div className="text-center py-16">
             <Target className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
-            <p className="text-muted-foreground">No goals yet. Create your first one!</p>
+            <p className="text-muted-foreground">Aún no tienes metas. ¡Crea tu primera!</p>
           </div>
         )}
       </main>
