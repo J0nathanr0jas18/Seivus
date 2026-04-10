@@ -44,7 +44,7 @@ export default function CalendarView({ deposits, onDayClick }: CalendarViewProps
   const prevMonth = () => setCurrentDate(new Date(year, month - 1, 1));
   const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
 
-  const monthName = currentDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+  const monthName = currentDate.toLocaleDateString("es-ES", { month: "long", year: "numeric" });
 
   return (
     <div className="bg-card rounded-2xl shadow-card border p-5">
@@ -52,14 +52,14 @@ export default function CalendarView({ deposits, onDayClick }: CalendarViewProps
         <Button variant="ghost" size="icon" onClick={prevMonth}>
           <ChevronLeft className="w-4 h-4" />
         </Button>
-        <h3 className="font-heading font-semibold text-card-foreground">{monthName}</h3>
+        <h3 className="font-heading font-semibold text-card-foreground capitalize">{monthName}</h3>
         <Button variant="ghost" size="icon" onClick={nextMonth}>
           <ChevronRight className="w-4 h-4" />
         </Button>
       </div>
 
       <div className="grid grid-cols-7 gap-1 mb-2">
-        {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => (
+        {["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"].map((d) => (
           <div key={d} className="text-center text-xs font-medium text-muted-foreground py-1">
             {d}
           </div>

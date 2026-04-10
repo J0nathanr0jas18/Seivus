@@ -16,7 +16,7 @@ export default function Profile() {
     <div className="min-h-screen bg-background pb-20 md:pb-8">
       <Navbar />
       <main className="max-w-lg mx-auto px-4 py-6">
-        <h1 className="font-heading text-2xl font-bold text-foreground mb-6">Profile</h1>
+        <h1 className="font-heading text-2xl font-bold text-foreground mb-6">Perfil</h1>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -33,7 +33,7 @@ export default function Profile() {
                 <Mail className="w-3 h-3" /> {dummyUser.email}
               </p>
               <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
-                <Calendar className="w-3 h-3" /> Joined {new Date(dummyUser.joinedAt).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+                <Calendar className="w-3 h-3" /> Miembro desde {new Date(dummyUser.joinedAt).toLocaleDateString("es-ES", { month: "long", year: "numeric" })}
               </p>
             </div>
           </div>
@@ -42,23 +42,23 @@ export default function Profile() {
             <div className="bg-secondary rounded-xl p-3 text-center">
               <Target className="w-4 h-4 mx-auto text-primary mb-1" />
               <p className="font-heading font-bold text-card-foreground">{goals.length}</p>
-              <p className="text-xs text-muted-foreground">Goals</p>
+              <p className="text-xs text-muted-foreground">Metas</p>
             </div>
             <div className="bg-secondary rounded-xl p-3 text-center">
               <DollarSign className="w-4 h-4 mx-auto text-accent mb-1" />
               <p className="font-heading font-bold text-card-foreground">${totalSaved.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Saved</p>
+              <p className="text-xs text-muted-foreground">Ahorrado</p>
             </div>
             <div className="bg-secondary rounded-xl p-3 text-center">
               <Calendar className="w-4 h-4 mx-auto text-success mb-1" />
               <p className="font-heading font-bold text-card-foreground">{totalDeposits}</p>
-              <p className="text-xs text-muted-foreground">Deposits</p>
+              <p className="text-xs text-muted-foreground">Depósitos</p>
             </div>
           </div>
         </motion.div>
 
         <Button variant="outline" className="w-full gap-2" onClick={() => navigate("/")}>
-          <LogOut className="w-4 h-4" /> Sign Out
+          <LogOut className="w-4 h-4" /> Cerrar Sesión
         </Button>
       </main>
     </div>

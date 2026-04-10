@@ -29,17 +29,17 @@ export default function Login() {
           <div className="w-14 h-14 rounded-2xl gradient-primary flex items-center justify-center mx-auto mb-4">
             <PiggyBank className="w-7 h-7 text-primary-foreground" />
           </div>
-          <h1 className="font-heading text-2xl font-bold text-foreground">Welcome back</h1>
-          <p className="text-muted-foreground text-sm mt-1">Sign in to continue saving</p>
+          <h1 className="font-heading text-2xl font-bold text-foreground">Bienvenido de nuevo</h1>
+          <p className="text-muted-foreground text-sm mt-1">Inicia sesión para seguir ahorrando</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label>Email</Label>
-            <Input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Label>Correo electrónico</Label>
+            <Input type="email" placeholder="tu@ejemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="space-y-2">
-            <Label>Password</Label>
+            <Label>Contraseña</Label>
             <div className="relative">
               <Input
                 type={showPw ? "text" : "password"}
@@ -53,14 +53,14 @@ export default function Login() {
             </div>
           </div>
           <Button type="submit" className="w-full gradient-primary text-primary-foreground">
-            Sign In
+            Iniciar Sesión
           </Button>
         </form>
 
         <p className="text-center text-sm text-muted-foreground mt-6">
-          Don't have an account?{" "}
+          ¿No tienes cuenta?{" "}
           <Link to="/register" className="text-primary font-medium hover:underline">
-            Sign up
+            Regístrate
           </Link>
         </p>
       </motion.div>

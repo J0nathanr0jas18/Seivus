@@ -21,7 +21,7 @@ export default function GoalDetail() {
       <div className="min-h-screen bg-background">
         <Navbar />
         <div className="flex items-center justify-center py-20">
-          <p className="text-muted-foreground">Goal not found.</p>
+          <p className="text-muted-foreground">Meta no encontrada.</p>
         </div>
       </div>
     );
@@ -36,7 +36,7 @@ export default function GoalDetail() {
       <Navbar />
       <main className="max-w-lg mx-auto px-4 py-6">
         <button onClick={() => navigate(-1)} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4">
-          <ArrowLeft className="w-4 h-4" /> Back
+          <ArrowLeft className="w-4 h-4" /> Volver
         </button>
 
         {/* Progress Card */}
@@ -49,7 +49,7 @@ export default function GoalDetail() {
           {goal.deadline && (
             <p className="text-xs text-muted-foreground flex items-center gap-1 mb-4">
               <Calendar className="w-3 h-3" />
-              Due {new Date(goal.deadline).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+              Vence el {new Date(goal.deadline).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" })}
             </p>
           )}
 
@@ -57,7 +57,7 @@ export default function GoalDetail() {
             <p className={`text-4xl font-heading font-bold ${isComplete ? "text-success" : "text-primary"}`}>
               {pct}%
             </p>
-            <p className="text-sm text-muted-foreground">completed</p>
+            <p className="text-sm text-muted-foreground">completado</p>
           </div>
 
           <ProgressBar value={pct} size="lg" className="mb-4" />
@@ -66,17 +66,17 @@ export default function GoalDetail() {
             <div className="text-center">
               <DollarSign className="w-4 h-4 mx-auto text-primary mb-1" />
               <p className="font-semibold text-sm text-card-foreground">${goal.savedAmount.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Saved</p>
+              <p className="text-xs text-muted-foreground">Ahorrado</p>
             </div>
             <div className="text-center">
               <Target className="w-4 h-4 mx-auto text-accent mb-1" />
               <p className="font-semibold text-sm text-card-foreground">${goal.targetAmount.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Target</p>
+              <p className="text-xs text-muted-foreground">Objetivo</p>
             </div>
             <div className="text-center">
               <TrendingUp className="w-4 h-4 mx-auto text-warning mb-1" />
               <p className="font-semibold text-sm text-card-foreground">${Math.max(0, remaining).toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Remaining</p>
+              <p className="text-xs text-muted-foreground">Restante</p>
             </div>
           </div>
         </motion.div>
@@ -84,14 +84,14 @@ export default function GoalDetail() {
         {/* Add Saving */}
         {!isComplete && (
           <Button onClick={() => setModalOpen(true)} className="w-full gradient-primary text-primary-foreground gap-2 mb-5">
-            <Plus className="w-4 h-4" /> Add Saving
+            <Plus className="w-4 h-4" /> Agregar Ahorro
           </Button>
         )}
 
         {/* Savings History */}
-        <h2 className="font-heading text-lg font-semibold text-foreground mb-3">Savings History</h2>
+        <h2 className="font-heading text-lg font-semibold text-foreground mb-3">Historial de Ahorros</h2>
         {goal.deposits.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No deposits yet.</p>
+          <p className="text-sm text-muted-foreground">Aún no hay depósitos.</p>
         ) : (
           <div className="space-y-2">
             {goal.deposits.map((d) => (
@@ -104,7 +104,7 @@ export default function GoalDetail() {
                 <div>
                   <p className="text-sm font-medium text-card-foreground">+${d.amount.toLocaleString()}</p>
                   <p className="text-xs text-muted-foreground">
-                    {new Date(d.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    {new Date(d.date).toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" })}
                   </p>
                 </div>
                 <DollarSign className="w-4 h-4 text-primary" />

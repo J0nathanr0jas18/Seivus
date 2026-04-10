@@ -30,21 +30,21 @@ export default function Register() {
           <div className="w-14 h-14 rounded-2xl gradient-primary flex items-center justify-center mx-auto mb-4">
             <PiggyBank className="w-7 h-7 text-primary-foreground" />
           </div>
-          <h1 className="font-heading text-2xl font-bold text-foreground">Create account</h1>
-          <p className="text-muted-foreground text-sm mt-1">Start your savings journey</p>
+          <h1 className="font-heading text-2xl font-bold text-foreground">Crear cuenta</h1>
+          <p className="text-muted-foreground text-sm mt-1">Comienza tu camino de ahorro</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label>Full Name</Label>
-            <Input placeholder="Alex Johnson" value={name} onChange={(e) => setName(e.target.value)} />
+            <Label>Nombre completo</Label>
+            <Input placeholder="Juan Pérez" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="space-y-2">
-            <Label>Email</Label>
-            <Input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Label>Correo electrónico</Label>
+            <Input type="email" placeholder="tu@ejemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="space-y-2">
-            <Label>Password</Label>
+            <Label>Contraseña</Label>
             <div className="relative">
               <Input
                 type={showPw ? "text" : "password"}
@@ -58,14 +58,14 @@ export default function Register() {
             </div>
           </div>
           <Button type="submit" className="w-full gradient-primary text-primary-foreground">
-            Create Account
+            Crear Cuenta
           </Button>
         </form>
 
         <p className="text-center text-sm text-muted-foreground mt-6">
-          Already have an account?{" "}
+          ¿Ya tienes cuenta?{" "}
           <Link to="/" className="text-primary font-medium hover:underline">
-            Sign in
+            Iniciar sesión
           </Link>
         </p>
       </motion.div>

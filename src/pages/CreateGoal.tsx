@@ -35,10 +35,10 @@ export default function CreateGoal() {
       <Navbar />
       <main className="max-w-lg mx-auto px-4 py-6">
         <button onClick={() => navigate(-1)} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4">
-          <ArrowLeft className="w-4 h-4" /> Back
+          <ArrowLeft className="w-4 h-4" /> Volver
         </button>
 
-        <h1 className="font-heading text-2xl font-bold text-foreground mb-6">Create a Goal</h1>
+        <h1 className="font-heading text-2xl font-bold text-foreground mb-6">Crear una Meta</h1>
 
         {!showPlan ? (
           <motion.form
@@ -48,19 +48,19 @@ export default function CreateGoal() {
             className="space-y-5"
           >
             <div className="space-y-2">
-              <Label>Goal Name</Label>
-              <Input placeholder="e.g. New iPhone, Vacation, Emergency Fund" value={name} onChange={(e) => setName(e.target.value)} />
+              <Label>Nombre de la meta</Label>
+              <Input placeholder="ej. iPhone nuevo, Vacaciones, Fondo de emergencia" value={name} onChange={(e) => setName(e.target.value)} />
             </div>
             <div className="space-y-2">
-              <Label>Target Amount ($)</Label>
+              <Label>Monto objetivo ($)</Label>
               <Input type="number" min="1" step="0.01" placeholder="1000" value={target} onChange={(e) => setTarget(e.target.value)} />
             </div>
             <div className="space-y-2">
-              <Label>Deadline (optional)</Label>
+              <Label>Fecha límite (opcional)</Label>
               <Input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
             </div>
             <Button type="submit" className="w-full gradient-primary text-primary-foreground">
-              Calculate Plan
+              Calcular Plan
             </Button>
           </motion.form>
         ) : (
@@ -68,30 +68,30 @@ export default function CreateGoal() {
             <div className="bg-card rounded-2xl p-6 shadow-card border">
               <div className="flex items-center gap-2 mb-4">
                 <Calculator className="w-5 h-5 text-primary" />
-                <h2 className="font-heading font-semibold text-card-foreground">Your Savings Plan</h2>
+                <h2 className="font-heading font-semibold text-card-foreground">Tu Plan de Ahorro</h2>
               </div>
               <p className="text-sm text-muted-foreground mb-4">
-                To reach <span className="font-semibold text-card-foreground">${targetNum.toLocaleString()}</span> for "{name}"
-                {daysUntilDeadline && ` in ${daysUntilDeadline} days`}:
+                Para alcanzar <span className="font-semibold text-card-foreground">${targetNum.toLocaleString()}</span> para "{name}"
+                {daysUntilDeadline && ` en ${daysUntilDeadline} días`}:
               </p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-secondary rounded-xl p-4 text-center">
                   <p className="text-2xl font-heading font-bold text-primary">${dailySuggestion}</p>
-                  <p className="text-xs text-muted-foreground">per day</p>
+                  <p className="text-xs text-muted-foreground">por día</p>
                 </div>
                 <div className="bg-secondary rounded-xl p-4 text-center">
                   <p className="text-2xl font-heading font-bold text-accent">${weeklySuggestion}</p>
-                  <p className="text-xs text-muted-foreground">per week</p>
+                  <p className="text-xs text-muted-foreground">por semana</p>
                 </div>
               </div>
             </div>
 
             <div className="flex gap-3">
               <Button variant="outline" className="flex-1" onClick={() => setShowPlan(false)}>
-                Edit
+                Editar
               </Button>
               <Button className="flex-1 gradient-primary text-primary-foreground" onClick={() => navigate("/dashboard")}>
-                Start Saving
+                Comenzar a Ahorrar
               </Button>
             </div>
           </motion.div>
