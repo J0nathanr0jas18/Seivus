@@ -1,3 +1,8 @@
+import goalMacbook from "@/assets/goal-macbook.jpg";
+import goalJapan from "@/assets/goal-japan.jpg";
+import goalEmergency from "@/assets/goal-emergency.jpg";
+import goalBicycle from "@/assets/goal-bicycle.jpg";
+
 export interface Deposit {
   id: string;
   date: string;
@@ -12,6 +17,7 @@ export interface Goal {
   deadline?: string;
   createdAt: string;
   deposits: Deposit[];
+  image?: string;
 }
 
 export interface User {
@@ -31,6 +37,7 @@ export const dummyGoals: Goal[] = [
   {
     id: "1",
     name: "MacBook Pro",
+    image: goalMacbook,
     targetAmount: 2500,
     savedAmount: 1875,
     deadline: "2026-06-01",
@@ -51,6 +58,7 @@ export const dummyGoals: Goal[] = [
   {
     id: "2",
     name: "Vacaciones a Japón",
+    image: goalJapan,
     targetAmount: 5000,
     savedAmount: 1200,
     deadline: "2026-12-15",
@@ -65,6 +73,7 @@ export const dummyGoals: Goal[] = [
   {
     id: "3",
     name: "Fondo de Emergencia",
+    image: goalEmergency,
     targetAmount: 10000,
     savedAmount: 4500,
     createdAt: "2025-06-01",
@@ -77,6 +86,7 @@ export const dummyGoals: Goal[] = [
   {
     id: "4",
     name: "Bicicleta Nueva",
+    image: goalBicycle,
     targetAmount: 800,
     savedAmount: 800,
     deadline: "2026-04-01",
