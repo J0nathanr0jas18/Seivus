@@ -43,9 +43,17 @@ export default function GoalDetail() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-card rounded-2xl p-6 shadow-card border mb-5"
+          className="bg-card rounded-2xl overflow-hidden shadow-card border mb-5"
         >
-          <h1 className="font-heading text-xl font-bold text-card-foreground mb-1">{goal.name}</h1>
+          {goal.image && (
+            <div className="relative h-48 overflow-hidden">
+              <img src={goal.image} alt={goal.name} className="w-full h-full object-cover" width={800} height={512} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <h1 className="absolute bottom-3 left-4 font-heading text-xl font-bold text-white drop-shadow">{goal.name}</h1>
+            </div>
+          )}
+          <div className="p-6">
+            {!goal.image && <h1 className="font-heading text-xl font-bold text-card-foreground mb-1">{goal.name}</h1>}
           {goal.deadline && (
             <p className="text-xs text-muted-foreground flex items-center gap-1 mb-4">
               <Calendar className="w-3 h-3" />
@@ -78,6 +86,7 @@ export default function GoalDetail() {
               <p className="font-semibold text-sm text-card-foreground">${Math.max(0, remaining).toLocaleString()}</p>
               <p className="text-xs text-muted-foreground">Restante</p>
             </div>
+          </div>
           </div>
         </motion.div>
 
