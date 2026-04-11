@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Goal } from "@/data/dummyData";
 import { Sparkles } from "lucide-react";
+import { toast } from "sonner";
 
 interface DailyCheckModalProps {
   open: boolean;
@@ -20,14 +21,26 @@ export default function DailyCheckModal({ open, onClose, goals, onSubmit }: Dail
 
   const activeGoals = goals.filter((g) => g.savedAmount < g.targetAmount);
 
+  const dailyMessages = [
+    "☀️ ¡Gran día para ahorrar! Cada moneda suma.",
+    "🌈 ¡Hoy diste un paso más hacia tu meta!",
+    "⭐ ¡Día productivo! Tu esfuerzo vale la pena.",
+    "🎊 ¡Check-in completado! La constancia es tu superpoder.",
+    "💎 ¡Valioso aporte! Tu futuro brilla más.",
+  ];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const num = parseFloat(amount);
     if (num > 0 && goalId) {
+      const goalName = goals.find((g) => g.id === goalId)?.name;
       onSubmit(goalId, num);
       setAmount("");
       setGoalId("");
       onClose();
+      toast.success(dailyMessages[Math.floor(Math.random() * dailyMessages.length)], {
+        description: `+$${num.toLocaleString()} ahorrados${goalName ? ` para "${goalName}"` : ""}`,
+      });
     }
   };
 

@@ -3,6 +3,24 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
+
+const motivationalMessages = [
+  "🎉 ¡Excelente! Cada peso cuenta para alcanzar tu sueño.",
+  "💪 ¡Sigue así! Estás más cerca de tu meta.",
+  "🌟 ¡Increíble! Tu disciplina te llevará lejos.",
+  "🚀 ¡Genial! Pequeños pasos, grandes resultados.",
+  "🔥 ¡Imparable! Tu futuro yo te lo agradecerá.",
+  "✨ ¡Bravo! Ahorrar hoy es invertir en tu felicidad.",
+  "🏆 ¡Campeón/a del ahorro! No pares.",
+  "💰 ¡Eso es! Tu alcancía está creciendo.",
+  "🎯 ¡Directo al objetivo! Vas por buen camino.",
+  "🙌 ¡Fantástico! La constancia es la clave del éxito.",
+];
+
+function getRandomMessage() {
+  return motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
+}
 
 interface AddSavingModalProps {
   open: boolean;
@@ -22,6 +40,9 @@ export default function AddSavingModal({ open, onClose, onSubmit, goalName }: Ad
       onSubmit(num, date);
       setAmount("");
       onClose();
+      toast.success(getRandomMessage(), {
+        description: `+$${num.toLocaleString()} ahorrados${goalName ? ` para "${goalName}"` : ""}`,
+      });
     }
   };
 
