@@ -1,20 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PiggyBank, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPw, setShowPw] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/dashboard");
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/dashboard");
+    } catch (error: any) {
+      toast.error("Error al iniciar sesión", {
+        description: error.message
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -36,7 +58,7 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label>Correo electrónico</Label>
-            <Input type="email" placeholder="tu@ejemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Input type="email" placeholder="tu@ejemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div className="space-y-2">
             <Label>Contraseña</Label>
@@ -46,14 +68,15 @@ export default function Login() {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                 {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
-          <Button type="submit" className="w-full gradient-primary text-primary-foreground">
-            Iniciar Sesión
+          <Button type="submit" disabled={loading} className="w-full gradient-primary text-primary-foreground">
+            {loading ? "Cargando..." : "Iniciar Sesión"}
           </Button>
         </form>
 

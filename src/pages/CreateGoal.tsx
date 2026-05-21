@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, Calculator } from "lucide-react";
 import { motion } from "framer-motion";
+import { useGoals } from "@/hooks/useGoals";
 
 export default function CreateGoal() {
   const [name, setName] = useState("");
@@ -13,6 +14,7 @@ export default function CreateGoal() {
   const [deadline, setDeadline] = useState("");
   const [showPlan, setShowPlan] = useState(false);
   const navigate = useNavigate();
+  const { addGoal } = useGoals();
 
   const targetNum = parseFloat(target) || 0;
 
@@ -27,6 +29,13 @@ export default function CreateGoal() {
     e.preventDefault();
     if (name && targetNum > 0) {
       setShowPlan(true);
+    }
+  };
+
+  const handleCreate = async () => {
+    if (name && targetNum > 0) {
+      await addGoal({ name, targetAmount: targetNum, deadline: deadline || undefined });
+      navigate("/dashboard");
     }
   };
 
@@ -90,7 +99,7 @@ export default function CreateGoal() {
               <Button variant="outline" className="flex-1" onClick={() => setShowPlan(false)}>
                 Editar
               </Button>
-              <Button className="flex-1 gradient-primary text-primary-foreground" onClick={() => navigate("/dashboard")}>
+              <Button className="flex-1 gradient-primary text-primary-foreground" onClick={handleCreate}>
                 Comenzar a Ahorrar
               </Button>
             </div>

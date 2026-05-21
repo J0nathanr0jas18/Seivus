@@ -19,7 +19,7 @@ export default function DailyCheckModal({ open, onClose, goals, onSubmit }: Dail
   const [amount, setAmount] = useState("");
   const [goalId, setGoalId] = useState("");
 
-  const activeGoals = goals.filter((g) => g.savedAmount < g.targetAmount);
+  const activeGoals = goals.filter((g) => g.currentAmount < g.targetAmount);
 
   const dailyMessages = [
     "☀️ ¡Gran día para ahorrar! Cada moneda suma.",

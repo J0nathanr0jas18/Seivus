@@ -5,8 +5,8 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function GoalCard({ goal }: { goal: Goal }) {
-  const pct = Math.round((goal.savedAmount / goal.targetAmount) * 100);
-  const remaining = goal.targetAmount - goal.savedAmount;
+  const pct = goal.targetAmount > 0 ? Math.round((goal.currentAmount / goal.targetAmount) * 100) : 0;
+  const remaining = goal.targetAmount - goal.currentAmount;
   const isComplete = pct >= 100;
 
   return (
@@ -51,7 +51,7 @@ export default function GoalCard({ goal }: { goal: Goal }) {
 
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">
-                ${goal.savedAmount.toLocaleString()} <span className="text-xs">/ ${goal.targetAmount.toLocaleString()}</span>
+                ${goal.currentAmount.toLocaleString()} <span className="text-xs">/ ${goal.targetAmount.toLocaleString()}</span>
               </span>
               <span className={`font-semibold ${isComplete ? "text-success" : "text-primary"}`}>
                 {isComplete ? "¡Completada!" : `${pct}%`}

@@ -3,22 +3,26 @@ import goalJapan from "@/assets/goal-japan.jpg";
 import goalEmergency from "@/assets/goal-emergency.jpg";
 import goalBicycle from "@/assets/goal-bicycle.jpg";
 
-export interface Deposit {
+export interface SavingsHistory {
   id: string;
   date: string;
   amount: number;
+  goalId?: string;
+  goalName?: string;
+  userId?: string;
 }
 
 export interface Goal {
   id: string;
   name: string;
   targetAmount: number;
-  savedAmount: number;
+  currentAmount: number;
   deadline?: string;
   createdAt: string;
-  deposits: Deposit[];
   image?: string;
+  userId?: string;
 }
+
 
 export interface User {
   name: string;

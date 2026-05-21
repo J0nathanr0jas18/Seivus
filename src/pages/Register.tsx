@@ -1,21 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PiggyBank, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPw, setShowPw] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/dashboard");
+    setLoading(true);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(userCredential.user, { displayName: name });
+      navigate("/dashboard");
+    } catch (error: any) {
+      toast.error("Error al crear cuenta", {
+        description: error.message
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -37,11 +60,11 @@ export default function Register() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label>Nombre completo</Label>
-            <Input placeholder="Juan Pérez" value={name} onChange={(e) => setName(e.target.value)} />
+            <Input placeholder="Juan Pérez" value={name} onChange={(e) => setName(e.target.value)} required />
           </div>
           <div className="space-y-2">
             <Label>Correo electrónico</Label>
-            <Input type="email" placeholder="tu@ejemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Input type="email" placeholder="tu@ejemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div className="space-y-2">
             <Label>Contraseña</Label>
@@ -51,14 +74,15 @@ export default function Register() {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                 {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
-          <Button type="submit" className="w-full gradient-primary text-primary-foreground">
-            Crear Cuenta
+          <Button type="submit" disabled={loading} className="w-full gradient-primary text-primary-foreground">
+            {loading ? "Cargando..." : "Crear Cuenta"}
           </Button>
         </form>
 

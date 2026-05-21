@@ -12,14 +12,14 @@ export default function Dashboard() {
   const { goals, addDeposit } = useGoals();
   const [dailyCheckOpen, setDailyCheckOpen] = useState(false);
 
-  const totalSaved = goals.reduce((s, g) => s + g.savedAmount, 0);
+  const totalSaved = goals.reduce((s, g) => s + g.currentAmount, 0);
   const totalTarget = goals.reduce((s, g) => s + g.targetAmount, 0);
-  const activeGoals = goals.filter((g) => g.savedAmount < g.targetAmount).length;
+  const activeGoals = goals.filter((g) => g.currentAmount < g.targetAmount).length;
 
   const stats = [
     { label: "Total Ahorrado", value: `$${totalSaved.toLocaleString()}`, icon: DollarSign, color: "text-primary" },
     { label: "Metas Activas", value: activeGoals, icon: Target, color: "text-accent" },
-    { label: "Progreso General", value: `${Math.round((totalSaved / totalTarget) * 100)}%`, icon: TrendingUp, color: "text-success" },
+    { label: "Progreso General", value: `${totalTarget > 0 ? Math.round((totalSaved / totalTarget) * 100) : 0}%`, icon: TrendingUp, color: "text-success" },
   ];
 
   return (

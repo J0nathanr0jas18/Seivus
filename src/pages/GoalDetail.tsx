@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 export default function GoalDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { getGoal, addDeposit } = useGoals();
+  const { getGoal, addDeposit, getAllDeposits } = useGoals();
   const [modalOpen, setModalOpen] = useState(false);
 
   const goal = getGoal(id || "");
@@ -27,9 +27,14 @@ export default function GoalDetail() {
     );
   }
 
-  const pct = Math.round((goal.savedAmount / goal.targetAmount) * 100);
-  const remaining = goal.targetAmount - goal.savedAmount;
+  const pct = goal.targetAmount > 0 ? Math.round((goal.currentAmount / goal.targetAmount) * 100) : 0;
+  const remaining = goal.targetAmount - goal.currentAmount;
   const isComplete = pct >= 100;
+
+  const allDeposits = getAllDeposits();
+  const goalDeposits = allDeposits
+    .filter((d) => d.goalId === goal.id)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
@@ -73,7 +78,7 @@ export default function GoalDetail() {
           <div className="grid grid-cols-3 gap-3">
             <div className="text-center">
               <DollarSign className="w-4 h-4 mx-auto text-primary mb-1" />
-              <p className="font-semibold text-sm text-card-foreground">${goal.savedAmount.toLocaleString()}</p>
+              <p className="font-semibold text-sm text-card-foreground">${goal.currentAmount.toLocaleString()}</p>
               <p className="text-xs text-muted-foreground">Ahorrado</p>
             </div>
             <div className="text-center">
@@ -99,11 +104,11 @@ export default function GoalDetail() {
 
         {/* Savings History */}
         <h2 className="font-heading text-lg font-semibold text-foreground mb-3">Historial de Ahorros</h2>
-        {goal.deposits.length === 0 ? (
+        {goalDeposits.length === 0 ? (
           <p className="text-sm text-muted-foreground">Aún no hay depósitos.</p>
         ) : (
           <div className="space-y-2">
-            {goal.deposits.map((d) => (
+            {goalDeposits.map((d) => (
               <motion.div
                 key={d.id}
                 initial={{ opacity: 0, x: -10 }}

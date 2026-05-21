@@ -13,7 +13,7 @@ export default function CalendarPage() {
   const [selectedGoalId, setSelectedGoalId] = useState("");
 
   const allDeposits = getAllDeposits();
-  const activeGoals = goals.filter((g) => g.savedAmount < g.targetAmount);
+  const activeGoals = goals.filter((g) => g.currentAmount < g.targetAmount);
 
   const depositsForDate = selectedDate
     ? allDeposits.filter((d) => d.date === selectedDate)

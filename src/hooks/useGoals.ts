@@ -1,40 +1,88 @@
-import { useState } from "react";
-import { dummyGoals, Goal, Deposit } from "@/data/dummyData";
+import { useState, useEffect } from "react";
+import { Goal, SavingsHistory } from "@/data/dummyData";
+import { db } from "@/lib/firebase";
+import { useAuth } from "@/hooks/useAuth";
+import { collection, onSnapshot, query, where, addDoc, doc, writeBatch, increment, collectionGroup } from "firebase/firestore";
 
 export function useGoals() {
-  const [goals, setGoals] = useState<Goal[]>(dummyGoals);
+  const [goals, setGoals] = useState<Goal[]>([]);
+  const [allDeposits, setAllDeposits] = useState<SavingsHistory[]>([]);
+  const { user } = useAuth();
 
-  const addGoal = (goal: Omit<Goal, "id" | "deposits" | "createdAt" | "savedAmount">) => {
-    const newGoal: Goal = {
-      ...goal,
-      id: Date.now().toString(),
-      savedAmount: 0,
-      deposits: [],
+  useEffect(() => {
+    if (!user) {
+      setGoals([]);
+      setAllDeposits([]);
+      return;
+    }
+
+    const q = query(collection(db, "goals"), where("userId", "==", user.uid));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const goalsData = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as Goal[];
+      setGoals(goalsData);
+    });
+
+    return () => unsubscribe();
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const q = query(collectionGroup(db, "SavingsHistory"), where("userId", "==", user.uid));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const depositsData = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as SavingsHistory[];
+      setAllDeposits(depositsData);
+    });
+
+    return () => unsubscribe();
+  }, [user]);
+
+  const addGoal = async (goalData: Omit<Goal, "id" | "currentAmount" | "createdAt" | "userId">) => {
+    if (!user) return null;
+    const newGoal = {
+      ...goalData,
+      currentAmount: 0,
       createdAt: new Date().toISOString().split("T")[0],
+      userId: user.uid,
     };
-    setGoals((prev) => [...prev, newGoal]);
-    return newGoal;
+    
+    const docRef = await addDoc(collection(db, "goals"), newGoal);
+    return { ...newGoal, id: docRef.id };
   };
 
-  const addDeposit = (goalId: string, amount: number, date?: string) => {
-    const deposit: Deposit = {
-      id: Date.now().toString(),
+  const addDeposit = async (goalId: string, amount: number, date?: string) => {
+    if (!user) return;
+    const goal = goals.find(g => g.id === goalId);
+    if (!goal) return;
+
+    const batch = writeBatch(db);
+    
+    const historyRef = doc(collection(db, `goals/${goalId}/SavingsHistory`));
+    batch.set(historyRef, {
       date: date || new Date().toISOString().split("T")[0],
       amount,
-    };
-    setGoals((prev) =>
-      prev.map((g) =>
-        g.id === goalId
-          ? { ...g, savedAmount: g.savedAmount + amount, deposits: [deposit, ...g.deposits] }
-          : g
-      )
-    );
+      goalId,
+      goalName: goal.name,
+      userId: user.uid
+    });
+
+    const goalRef = doc(db, "goals", goalId);
+    batch.update(goalRef, {
+      currentAmount: increment(amount)
+    });
+
+    await batch.commit();
   };
 
   const getGoal = (id: string) => goals.find((g) => g.id === id);
 
-  const getAllDeposits = () =>
-    goals.flatMap((g) => g.deposits.map((d) => ({ ...d, goalName: g.name, goalId: g.id })));
+  const getAllDeposits = () => allDeposits;
 
   return { goals, addGoal, addDeposit, getGoal, getAllDeposits };
 }
