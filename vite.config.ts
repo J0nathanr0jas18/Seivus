@@ -13,7 +13,8 @@ export default defineConfig(({ mode }) => ({
     },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
-  base: '/NexoByte/', 
+  // Esta es la línea corregida obligatoria para GitHub Pages:
+  base: "/NexoByte/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 import { 
   getFirestore, 
   enableMultiTabIndexedDbPersistence, 
@@ -24,11 +25,13 @@ const firebaseConfig = {
   projectId: "seivus-dfcba",
   storageBucket: "seivus-dfcba.firebasestorage.app",
   messagingSenderId: "118631234819",
-  appId: "1:118631234819:web:bb64b4ddfbec62dd86fd36"
+  appId: "1:118631234819:web:bb64b4ddfbec62dd86fd36",
+  measurementId: "G-45HFDEKXQ6"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 // Initialize Firestore
 const db = getFirestore(app);
